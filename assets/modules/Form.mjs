@@ -20,8 +20,41 @@ export class Form {
         this.id = id;
         this.action = action;
         this.method = method;
-        this.fields = fields;
         this.attributes = attributes;
+        this.fields = [];
+        for (let field of fields) {
+            this.addField(field);
+        }
+    }
+
+
+
+    /**
+     * Add a field to the form
+     * @param {Field} field The field to add
+     */
+    addField(field) {
+        if (!this.fields.includes(field)) {
+            this.fields.push(field);
+        }
+
+        if (field.form !== this) {
+            field.form = this;
+        }
+    }
+
+
+
+    /**
+     * Remove a field from the form
+     * @param {Field} field The field to remove
+     */
+    removeField(field) {
+        this.fields = this.fields.filter(f => f !== field);
+
+        if (field.form === this) {
+            field.form = null;
+        }
     }
 
 
@@ -58,7 +91,7 @@ export class Form {
 
     /**
      * Validate the form and all its fields
-     * @returns {boolean} True if the form is valid, false otherwise
+     * @returns {Boolean} True if the form is valid, false otherwise
      */
     validate() {
         let isValid = true;
@@ -76,7 +109,7 @@ export class Form {
 
     /**
      * Validate the form and show errors for all its fields
-     * @returns {boolean} True if the form is valid, false otherwise
+     * @returns {Boolean} True if the form is valid, false otherwise
      */
     validateAndShow() {
         let isValid = true;

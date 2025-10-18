@@ -1,4 +1,6 @@
+import { Form } from "../form.mjs";
 import { Option } from "../options/Option.mjs";
+import { FieldValidator } from "../validators/FieldValidator.mjs";
 
 export class Field {
     /**
@@ -7,7 +9,9 @@ export class Field {
      * @param {String} params.label The label text for the field
      * @param {String} params.helper Helper text displayed below the field
      * @param {Object} params.attributes Additional HTML attributes for the input element
+     * @param {Array<FieldValidator>} params.validators An array of validators for the field
      * @param {Array<Option>} params.datalist The datalist options for the field
+     * @param {Form} params.form The form that this field belongs to
      */
     constructor({
         id,
@@ -15,7 +19,9 @@ export class Field {
         label = null,
         helper = null,
         attributes = {},
-        datalist = []
+        validators = [],
+        datalist = [],
+        form = null
     }) {
         if (document.getElementById(id)) throw new Error(`Element with id "${id}" already exists in the DOM.`);
 
@@ -24,7 +30,9 @@ export class Field {
         this.label = label;
         this.helper = helper;
         this.attributes = attributes;
+        this.validators = validators;
         this.datalist = datalist;
+        this.form = form;
 
         this.errors = [];
         this.valueType = String;
@@ -32,6 +40,27 @@ export class Field {
 
         if (this.datalist.length > 0) {
             this.attributes.list = `datalist-${this.id}`;
+        }
+    }
+
+
+
+    /**
+     * Add this field to a form
+     * @param {Form} form The form to add this field to
+     */
+    addToForm(form) {
+        form.addField(this);
+    }
+
+
+
+    /**
+     * Remove this field from its form
+     */
+    removeFromForm() {
+        if (this.form) {
+            this.form.removeField(this);
         }
     }
 
@@ -252,13 +281,16 @@ export class Field {
 
     /**
      * Validate the current value of the field
-     * @returns {boolean} True if the field is valid, false otherwise
+     * @returns {Boolean} True if the field is valid, false otherwise
      */
     validate() {
+        // Reset errors and validity
         this.errors = [];
+        this.dom()?.setCustomValidity('');
 
 
 
+        // Validate HTML5 constraints
         let element = this.getInputDOMElement();
 
         if (element && !element.checkValidity()) {
@@ -266,6 +298,10 @@ export class Field {
         }
 
 
+        // Run custom validators
+        this.validators.forEach(validator => {
+            validator.evaluate(this);
+        });
 
         return this.errors.length === 0;
     }
@@ -292,7 +328,7 @@ export class Field {
 
     /**
      * Validate the field and update the DOM with any errors
-     * @returns {boolean} True if the field is valid, false otherwise
+     * @returns {Boolean} True if the field is valid, false otherwise
      */
     validateAndShow() {
         let isValid = this.validate();

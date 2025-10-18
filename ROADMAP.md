@@ -26,7 +26,7 @@
   - [x] `HiddenField`
   - [x] `SearchField`
 - [x] ADD datalist support
-- [ ] ADD custom validation
+- [x] ADD custom validation
 - [ ] ADD `Form`
   - [x] ADD form rendering
   - [ ] ADD form submission handling
