@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [STVP](https://drive.mia.kiwi/index.php/s/PLGxSTNDxSTVP).
 
+## [25.0.1] - 2025-10-18
+
+### Added
+
+- Hidden field (`HiddenField`)
+- Search field (`SearchField`)
+- File field (`FileField`)
+
+### Changed
+
+- `MultiSelectField` attribute `valueType` to `Option[]`, instead of `Options[]`
+
+
+
 ## [25.0.0] - 2025-10-18
 
 ### Added

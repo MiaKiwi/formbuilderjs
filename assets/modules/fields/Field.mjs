@@ -118,21 +118,28 @@ export class Field {
                 return Boolean(value);
 
             case Number:
-
                 return parseFloat(value);
+
             case Date:
 
                 return new Date(value);
-            case 'Options[]':
+            case 'Option[]':
                 value = Array.prototype.slice.call(value || []);
                 return this.getOptionsRecursively().filter(opt => value.map(v => v.value).includes(opt.value));
 
             case Option:
                 return this.getOptionsRecursively().find(opt => opt.value === value) || null;
 
+            case FileList:
+                return value.length > 0 ? value : null;
+
+            case File:
+                return value.length > 0 ? value[0] : null;
+
+
             case String:
             default:
-                return String(value);
+                return String(value) || '';
         }
     }
 

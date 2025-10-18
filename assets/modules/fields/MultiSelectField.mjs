@@ -14,7 +14,7 @@ export class MultiSelectField extends SelectField {
 
         this.options = options;
 
-        this.valueType = 'Options[]';
+        this.valueType = 'Option[]';
         this.valueAttribute = 'selectedOptions';
     }
 

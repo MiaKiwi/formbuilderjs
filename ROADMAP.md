@@ -3,7 +3,7 @@
 ## Version 25.1.0
 
 - [x] ADD abstract `Field` class to define common field properties and methods
-- [ ] ADD basic `Field` subclasses:
+- [x] ADD basic `Field` subclasses:
   - [x] `CheckboxField`
   - [x] `ColorField`
   - [x] `DateField`
@@ -22,10 +22,9 @@
   - [x] `TimeField`
   - [x] `URLField`
   - [x] `WeekField`
-  - [ ] `FileField`
-  - [ ] `HiddenField`
-  - [ ] `SearchField`
-  - [ ] Button fields
+  - [x] `FileField`
+  - [x] `HiddenField`
+  - [x] `SearchField`
 - [x] ADD datalist support
 - [ ] ADD custom validation
 - [ ] ADD `Form`
@@ -35,5 +34,11 @@
   - [ ] `ArrayField`
   - [ ] `ObjectField`
 - [ ] ADD built-in validation for specific field types
-- [ ] ADD common fields for convenience (e.g. name, address, credit card, etc.)
+- [ ] ADD pre-built field groups:
+  - [ ] Address group
+  - [ ] Payment details group
+  - [ ] Personal information group
+  - [ ] Login credentials group
 - [ ] ADD documentation and examples
+- [ ] CHANGE more styling
+- [ ] ADD field grouping and layout options
