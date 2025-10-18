@@ -3,7 +3,7 @@
 ## Version 25.1.0
 
 - [x] ADD abstract `Field` class to define common field properties and methods
-- [] ADD basic `Field` subclasses:
+- [ ] ADD basic `Field` subclasses:
   - [x] `CheckboxField`
   - [x] `ColorField`
   - [x] `DateField`
