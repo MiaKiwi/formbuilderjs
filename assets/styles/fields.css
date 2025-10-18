@@ -1,0 +1,80 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border: none;
+    border-left: 1px solid #24242488;
+    padding: 0;
+    margin: 0;
+    padding-left: 0.25em;
+}
+
+
+
+.field-group>*:not(legend) {
+    padding-left: 0.25em;
+}
+
+
+
+.field {
+    display: grid;
+    grid-template-areas: "label"
+        "input"
+        "note";
+    padding: 0.25em;
+    gap: 0.25em;
+}
+
+
+
+.field-label {
+    grid-area: label;
+    cursor: pointer;
+}
+
+
+
+.field-input {
+    grid-area: input;
+    padding: 0.5em;
+    border: 1px solid #24242488;
+    border-radius: 0.25em;
+    box-shadow: none;
+}
+
+
+
+.field-input:focus {
+    border-color: #299fff;
+    box-shadow: rgb(41, 159, 255, 0.2) 0px 7px 29px 0px;
+}
+
+
+
+.field-input:user-invalid {
+    border-color: #e60000;
+    background-color: #e6000033;
+}
+
+
+
+.field-input:user-valid {
+    border-color: #00e600;
+}
+
+
+
+.field-note {
+    grid-area: note;
+    font-size: small;
+    opacity: 0.75;
+}
