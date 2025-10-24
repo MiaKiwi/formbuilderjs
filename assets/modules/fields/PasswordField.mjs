@@ -1,12 +1,13 @@
-import { IncludeLowerCaseFieldValidator } from "../validators/IncludeLowerCaseFieldValidator.mjs";
-import { IncludeNumbersFieldValidator } from "../validators/IncludeNumbersFieldValidator.mjs";
-import { IncludeSymbolsFieldValidator } from "../validators/IncludeSymbolsFieldValidator.mjs";
-import { IncludeUpperCaseFieldValidator } from "../validators/IncludeUpperCaseFieldValidator.mjs";
-import { MinLengthFieldValidator } from "../validators/MinLengthFieldValidator.mjs";
-import { Field } from "./Field.mjs";
+import { IncludeLowerCaseFieldValidator } from "../Validators/IncludeLowerCaseFieldValidator.mjs";
+import { IncludeNumberFieldValidator } from "../Validators/IncludeNumberFieldValidator.mjs";
+import { IncludeSymbolFieldValidator } from "../Validators/IncludeSymbolFieldValidator.mjs";
+import { IncludeUpperCaseFieldValidator } from "../Validators/IncludeUpperCaseFieldValidator.mjs";
+import { HTMLInputField } from "./HTMLInputField.mjs";
 
-export class PasswordField extends Field {
+export class PasswordField extends HTMLInputField {
     /**
+     * Creates a new PasswordField instance
+     * @param {Object} params The parameters for the password field
      * @param {Number} params.includeNumbers Number of numeric characters to include (0 means none required)
      * @param {Number} params.includeSymbols Number of symbol characters to include (0 means none required)
      * @param {Number} params.includeUppercase Number of uppercase characters to include (0 means none required)
@@ -17,8 +18,8 @@ export class PasswordField extends Field {
     constructor({
         includeNumbers = 1,
         includeSymbols = 1,
-        includeUppercase = 1,
         includeLowercase = 1,
+        includeUppercase = 1,
         symbols = '!@#$%^&*()_+{}:"<>?|[];\',./`~-=\\'.split(''),
         min = 8,
         ...params
@@ -27,22 +28,18 @@ export class PasswordField extends Field {
 
         this.includeNumbers = includeNumbers;
         this.includeSymbols = includeSymbols;
-        this.includeUppercase = includeUppercase;
         this.includeLowercase = includeLowercase;
+        this.includeUppercase = includeUppercase;
         this.symbols = symbols;
         this.min = min;
-        this.attributes.minLength = min;
+        this.attributes.minLength = this.min;
 
         // Add validators
-        if (this.includeNumbers > 0) this.validators.push(new IncludeNumbersFieldValidator(this.includeNumbers, `Password must include at least ${this.includeNumbers} numeric character(s).`));
-        if (this.includeSymbols > 0) this.validators.push(new IncludeSymbolsFieldValidator(this.includeSymbols, this.symbols, `Password must include at least ${this.includeSymbols} symbol character(s): ${this.symbols.join('')}`));
-        if (this.includeUppercase > 0) this.validators.push(new IncludeUpperCaseFieldValidator(this.includeUppercase, `Password must include at least ${this.includeUppercase} uppercase character(s).`));
-        if (this.includeLowercase > 0) this.validators.push(new IncludeLowerCaseFieldValidator(this.includeLowercase, `Password must include at least ${this.includeLowercase} lowercase character(s).`));
-    }
+        if (this.includeLowercase > 0) this.validators.push(new IncludeLowerCaseFieldValidator(this.includeLowercase));
+        if (this.includeUppercase > 0) this.validators.push(new IncludeUpperCaseFieldValidator(this.includeUppercase));
+        if (this.includeNumbers > 0) this.validators.push(new IncludeNumberFieldValidator(this.includeNumbers));
+        if (this.includeSymbols > 0) this.validators.push(new IncludeSymbolFieldValidator(this.includeSymbols, this.symbols));
 
-
-
-    renderInput() {
-        return `<input type="password" id="${this.id}" name="${this.name}" class="field-input password-field" ${this.renderAttributes()}>`;
+        this.htmlInputType = 'password';
     }
 }

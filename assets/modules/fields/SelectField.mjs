@@ -4,6 +4,8 @@ import { Field } from "./Field.mjs";
 
 export class SelectField extends Field {
     /**
+     * Creates an instance of the SelectField class
+     * @param {Object} params The parameters for the select field
      * @param {Array<Option|OptionsGroup>} params.options The options for the select field
      */
     constructor({
@@ -19,20 +21,64 @@ export class SelectField extends Field {
 
 
 
-    renderInput() {
-        let optionsHTML = this.options.map(option => {
-            return option.render();
-        }).join('');
+    createInputRegionElement(doc = document) {
+        // Check if the input already exists
+        if (this.inputRegionElementExists(doc)) throw new Error(`Input region element with ID "${this.getInputRegionId()}" already exists in the document.`);
 
-        return `<select id="${this.id}" name="${this.name}" class="field-input select-field" ${this.renderAttributes()}>
-            ${optionsHTML}
-        </select>`;
+        let input = doc.createElement("select");
+
+        for (let [key, value] of Object.entries(this.attributes)) {
+            input.setAttribute(key, value);
+        }
+
+        input.id = this.getInputRegionId();
+        input.name = this.name;
+        input.classList.add('field-input');
+
+        for (let optionOrGroup of this.options) {
+            input.appendChild(optionOrGroup.dom(doc));
+        }
+
+        try {
+            input.value = this.getValue()?.value || '';
+        } catch (e) {
+            console.debug(`Failed to set value for input field "${this.name}":`, e);
+        }
+
+        return input;
+    }
+
+
+
+    updateInputRegionElementInDOM(doc = document) {
+        let input = this.getInputRegionElementFromDOM(doc);
+
+        if (input) {
+            input.value = this.getValue()?.value || '';
+        }
     }
 
 
 
     /**
-     * Get all options for the select field, including nested options from groups
+     * Gets the option that matches the given value
+     * @param {*} value The value to match
+     * @returns {Option|null} The matching option or null if not found
+     */
+    getOptionByValue(value) {
+        for (let option of this.getOptionsRecursively()) {
+            if (option.value == value) {
+                return option;
+            }
+        }
+
+        return null;
+    }
+
+
+
+    /**
+     * Gets all options, including those in groups
      * @returns {Array<Option>} An array of all options
      */
     getOptionsRecursively() {
@@ -47,5 +93,15 @@ export class SelectField extends Field {
         }
 
         return allOptions;
+    }
+
+
+
+    getValue() {
+        let input = this.getInputRegionElementFromDOM();
+
+        let value = input ? input.value : this.value;
+
+        return this.getOptionByValue(value);
     }
 }

@@ -1,24 +1,54 @@
+import { RandomIDProvider } from "../IDProviders/RandomIDProvider.mjs";
+
 export class Option {
     /**
+     * Creates an instance of the Option class
      * @param {*} value The value of the option
-     * @param {String} label The display label for the option
+     * @param {String} label The label of the option
+     * @param {Object} attributes Additional attributes for the option
      */
     constructor(value, label = null, attributes = {}) {
         this.value = value;
         this.label = label !== null ? label : String(value);
         this.attributes = attributes;
+
+        this.id = attributes.id || RandomIDProvider.new();
     }
 
 
 
     /**
-     * Get the string of HTML attributes for the option
-     * @returns {String} The HTML attributes for the option
+     * Creates an HTML element for the option
+     * @param {Document} doc The document object to create the element in
+     * @returns {HTMLOptionElement} The created option element
      */
-    renderAttributes() {
-        return Object.entries(this.attributes)
-            .map(([key, value]) => `${key}="${value}"`)
-            .join(' ');
+    createElement(doc = document) {
+        // Check if the option already exists
+        if (doc.getElementById(this.id)) throw new Error(`Option with ID "${this.id}" already exists in the document.`);
+
+        let option = doc.createElement('option');
+
+        for (let [key, value] of Object.entries(this.attributes)) {
+            option.setAttribute(key, value);
+        }
+
+        option.id = this.id;
+        option.value = this.value;
+        option.innerHTML = this.label;
+        option.label = this.label;
+
+        return option;
+    }
+
+
+
+    /**
+     * Gets the DOM element for the option, creating it if it doesn't exist
+     * @param {Document} doc The document object to get the element from
+     * @returns {HTMLOptionElement} The option element
+     */
+    dom(doc = document) {
+        return doc.getElementById(this.id) ?? this.createElement(doc);
     }
 
 
@@ -29,15 +59,5 @@ export class Option {
      */
     toString() {
         return this.label;
-    }
-
-
-
-    /**
-     * Renders the option as an HTML string
-     * @returns {String} The HTML representation of the option
-     */
-    render() {
-        return `<option value="${this.value}" ${this.renderAttributes()}>${this.label}</option>`;
     }
 }

@@ -1,15 +1,11 @@
-import { Field } from "./Field.mjs";
+import { HTMLDatalistInputField } from "./HTMLDatalistInputField.mjs"
 
-export class NumberField extends Field {
+export class NumberField extends HTMLDatalistInputField {
     constructor(params) {
         super(params);
 
+        this.htmlInputType = 'number';
+
         this.valueType = Number;
-    }
-
-    
-
-    renderInput() {
-        return `<input type="number" id="${this.id}" name="${this.name}" class="field-input number-field" ${this.renderAttributes()}>`;
     }
 }

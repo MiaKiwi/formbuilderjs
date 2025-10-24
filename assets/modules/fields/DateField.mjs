@@ -1,15 +1,11 @@
-import { Field } from "./Field.mjs";
+import { HTMLDatalistInputField } from "./HTMLDatalistInputField.mjs"
 
-export class DateField extends Field {
+export class DateField extends HTMLDatalistInputField {
     constructor(params) {
         super(params);
 
+        this.htmlInputType = 'date';
+
         this.valueType = Date;
-    }
-
-
-
-    renderInput() {
-        return `<input type="date" id="${this.id}" name="${this.name}" class="field-input date-field" ${this.renderAttributes()}>`;
     }
 }

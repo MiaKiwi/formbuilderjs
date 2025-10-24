@@ -1,13 +1,9 @@
-import { Field } from "./Field.mjs";
+import { HTMLInputField } from "./HTMLInputField.mjs";
 
-export class HiddenField extends Field {
+export class HiddenField extends HTMLInputField {
     constructor(params) {
         super(params);
-    }
 
-
-
-    renderInput() {
-        return `<input${this.value ? ` value="${this.value}"` : ''} type="hidden" id="${this.id}" name="${this.name}" class="field-input hidden-field" ${this.renderAttributes()}>`;
+        this.htmlInputType = 'hidden';
     }
 }

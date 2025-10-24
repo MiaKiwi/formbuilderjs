@@ -1,13 +1,9 @@
-import { Field } from "./Field.mjs";
+import { HTMLDatalistInputField } from "./HTMLDatalistInputField.mjs"
 
-export class WeekField extends Field {
+export class WeekField extends HTMLDatalistInputField {
     constructor(params) {
         super(params);
-    }
 
-    
-
-    renderInput() {
-        return `<input type="week" id="${this.id}" name="${this.name}" class="field-input week-field" ${this.renderAttributes()}>`;
+        this.htmlInputType = 'week';
     }
 }

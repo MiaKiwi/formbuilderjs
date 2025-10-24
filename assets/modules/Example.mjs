@@ -1,27 +1,3 @@
-# 🥝 A JS form-building module
-
-> *kiwi.mia.0049* — FormBuilderJS
-
-Quickly build fancy HTML forms without interacting with HTML!
-
-FormBuilderJS provides a set of JS classes to create HTML forms and fields programmatically with support for HTML constraints and custom validation.
-
-## Features
-
-- Create forms and fields
-- Validate field values
-- Render forms and fields to HTML
-- Support for various field types:
-  - Text
-  - File
-  - Selection
-  - And more!
-
-## Example Usage
-
-Here's a simple accident report form built using FormBuilderJS:
-
-```javascript
 import { Form } from "./forms/Form.mjs";
 import { TextField } from "./Fields/TextField.mjs";
 import { DateField } from "./Fields/DateField.mjs";
@@ -142,4 +118,3 @@ form.dom().addEventListener('change', () => {
 
     console.log(form.getSummary());
 });
-```

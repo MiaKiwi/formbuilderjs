@@ -1,14 +1,17 @@
-import { Field } from "./Field.mjs";
+import { NumberOfFilesValidator } from "../Validators/NumberOfFilesValidator.mjs";
+import { HTMLInputField } from "./HTMLInputField.mjs";
 
-export class FileField extends Field {
+export class FileField extends HTMLInputField {
     /**
-     * @param {String} params.accept The file types that are accepted
-     * @param {Boolean} params.multiple Whether multiple files can be selected
-     * @param {Number|null} params.min The minimum number of files that must be selected
-     * @param {Number|null} params.max The maximum number of files that can be selected
+     * Creates an instance of the FileField class
+     * @param {Object} params The parameters for the file field
+     * @param {String} [params.accept='*'] The accepted file types
+     * @param {Boolean} [params.multiple=false] Whether multiple file selection is allowed
+     * @param {Number|null} [params.min=null] The minimum number of files that can be selected
+     * @param {Number|null} [params.max=null] The maximum number of files that can be selected
      */
     constructor({
-        accept = '',
+        accept = '*',
         multiple = false,
         min = null,
         max = null,
@@ -21,43 +24,18 @@ export class FileField extends Field {
         this.min = min;
         this.max = max;
 
-        if (accept) this.attributes.accept = accept;
-        if (multiple) this.attributes.multiple = 'multiple';
-        if (min !== null) this.attributes['min'] = min;
-        if (max !== null) this.attributes['max'] = max;
+        this.attributes.accept = this.accept;
+        if (this.multiple) this.attributes.multiple = 'multiple';
+        if (this.min !== null) this.attributes.min = this.min;
+        if (this.max !== null) this.attributes.max = this.max;
+
+        if (this.multiple && this.min !== null && this.max !== null) {
+            this.validators.push(new NumberOfFilesValidator(this.min, this.max));
+        }
+
+        this.htmlInputType = 'file';
+        this.htmlValueAttribute = 'files';
 
         this.valueType = multiple ? FileList : File;
-        this.valueAttribute = 'files';
-    }
-
-
-
-    renderInput() {
-        return `<input${this.value ? ` value="${this.value}"` : ''} type="file" id="${this.id}" name="${this.name}" class="field-input file-field" ${this.renderAttributes()}>`;
-    }
-
-
-
-    validate() {
-        this.errors = [];
-
-
-
-        let element = this.getInputDOMElement();
-
-        if (element && !element.checkValidity()) {
-            this.errors.push(element.validationMessage);
-        }
-
-
-
-        if (this.multiple) {
-            if (this.min !== null && this.readValue()?.length < this.min) this.errors.push(`Please select at least ${this.min} files.`);
-            if (this.max !== null && this.readValue()?.length > this.max) this.errors.push(`Please select no more than ${this.max} files.`);
-        }
-
-
-
-        return this.errors.length === 0;
     }
 }

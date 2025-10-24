@@ -1,13 +1,9 @@
-import { Field } from "./Field.mjs";
+import { HTMLDatalistInputField } from "./HTMLDatalistInputField.mjs"
 
-export class EmailField extends Field {
+export class EmailField extends HTMLDatalistInputField {
     constructor(params) {
         super(params);
-    }
 
-    
-
-    renderInput() {
-        return `<input type="email" id="${this.id}" name="${this.name}" class="field-input email-field" ${this.renderAttributes()}>`;
+        this.htmlInputType = 'email';
     }
 }

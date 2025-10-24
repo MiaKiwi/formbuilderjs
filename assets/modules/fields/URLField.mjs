@@ -1,13 +1,11 @@
-import { Field } from "./Field.mjs";
+import { HTMLDatalistInputField } from "./HTMLDatalistInputField.mjs"
 
-export class URLField extends Field {
+export class URLField extends HTMLDatalistInputField {
     constructor(params) {
         super(params);
-    }
 
-    
+        this.htmlInputType = 'url';
 
-    renderInput() {
-        return `<input type="url" id="${this.id}" name="${this.name}" class="field-input url-field" ${this.renderAttributes()}>`;
+        this.valueType = URL;
     }
 }

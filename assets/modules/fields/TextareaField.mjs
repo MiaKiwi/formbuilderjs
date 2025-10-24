@@ -1,13 +1,10 @@
-import { Field } from "./Field.mjs";
+import { HTMLInputField } from "./HTMLInputField.mjs";
 
-export class TextareaField extends Field {
+export class TextareaField extends HTMLInputField {
     constructor(params) {
         super(params);
-    }
 
-
-
-    renderInput() {
-        return `<textarea id="${this.id}" name="${this.name}" class="field-input text-field" ${this.renderAttributes()}>${this.value || ''}</textarea>`;
+        this.htmlInputType = null;
+        this.htmlTagName = 'textarea';
     }
 }

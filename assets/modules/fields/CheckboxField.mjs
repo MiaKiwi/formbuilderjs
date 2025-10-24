@@ -1,16 +1,12 @@
-import { Field } from "./Field.mjs";
+import { HTMLInputField } from "./HTMLInputField.mjs";
 
-export class CheckboxField extends Field {
+export class CheckboxField extends HTMLInputField {
     constructor(params) {
         super(params);
 
+        this.htmlInputType = 'checkbox';
+        this.htmlValueAttribute = 'checked';
+
         this.valueType = Boolean;
-        this.valueAttribute = 'checked';
-    }
-
-
-
-    renderInput() {
-        return `<input type="checkbox" id="${this.id}" name="${this.name}" class="field-input checkbox-field" ${this.renderAttributes()}>`;
     }
 }

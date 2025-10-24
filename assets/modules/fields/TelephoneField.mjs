@@ -1,13 +1,9 @@
-import { Field } from "./Field.mjs";
+import { HTMLDatalistInputField } from "./HTMLDatalistInputField.mjs"
 
-export class TelephoneField extends Field {
+export class TelephoneField extends HTMLDatalistInputField {
     constructor(params) {
         super(params);
-    }
 
-    
-
-    renderInput() {
-        return `<input type="tel" id="${this.id}" name="${this.name}" class="field-input telephone-field" ${this.renderAttributes()}>`;
+        this.htmlInputType = 'tel';
     }
 }
