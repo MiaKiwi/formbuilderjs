@@ -1,3 +1,5 @@
+import { HTMLDatalistInputField } from "../Fields/HTMLDatalistInputField.mjs";
+
 export class Form {
     constructor({
         id,
@@ -188,5 +190,23 @@ export class Form {
         }
 
         return valid;
+    }
+
+
+
+    /**
+     * Appends the form to a parent element
+     * @param {HTMLElement} parent The parent element to append the form to
+     */
+    appendIn(parent) {
+        // Append the form element to the parent
+        parent.appendChild(this.dom());
+
+        // Append the datalists of the fields
+        this.fields.forEach(field => {
+            if (field instanceof HTMLDatalistInputField && field.datalist && !parent.ownerDocument.getElementById(field.datalist.id)) {
+                parent.appendChild(field.datalist.dom(parent.ownerDocument));
+            }
+        })
     }
 }
