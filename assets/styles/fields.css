@@ -78,3 +78,42 @@
     font-size: small;
     opacity: 0.75;
 }
+
+
+
+.array-field-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+
+
+.array-field-item {
+    display: grid;
+    grid-template-areas: "item-index field remove-button";
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5em;
+    align-items: center;
+}
+
+
+
+.array-field-item .field {
+    grid-area: field;
+}
+
+
+
+.array-field-item .item-index {
+    grid-area: item-index;
+    font-weight: bold;
+    user-select: none;
+}
+
+
+
+.array-field-item .remove-button {
+    grid-area: remove-button;
+    height: fit-content;
+}

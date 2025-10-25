@@ -9,6 +9,29 @@ and this project adheres to [STVP](https://drive.mia.kiwi/index.php/s/PLGxSTNDxS
 
 ### Added
 
+- Support for URLs in `Caster`
+- `SubfieldsField` for fields with sub-fields (e.g. array)
+- Array field with validation
+- Styling for `ArrayField`
+
+### Changed
+
+- `appendIn` method of `Form` doesn't check for `HTMLDatalistInputField` anymore
+- Option attributes are now added to radio inputs
+- Updated example with `ArrayField`
+- `URLField` value is now cast to a URL object
+- If the options of `SelectField` already exist in the DOM, they are clone. This is to avoid issues with the array field that 'steals' the options from previous items
+
+### Fixed
+
+- `FileField` min/max validator doesn't require the min AND the max to be set anymore
+
+
+
+## [25.0.4] - 2025-10-24
+
+### Added
+
 - Method `appendIn` to `Form` which appends the form to a parent element as well as the necessary datalists
 
 

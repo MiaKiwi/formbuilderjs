@@ -43,6 +43,9 @@ export class RadioField extends Field {
             label.innerHTML = option.label;
 
             let input = doc.createElement("input");
+            for (let [key, value] of Object.entries(option.attributes)) {
+                input.setAttribute(key, value);
+            }
             input.type = "radio";
             input.id = inputId;
             input.name = this.name;
@@ -88,7 +91,7 @@ export class RadioField extends Field {
     getValue() {
         let input = this.getInputRegionElementFromDOM();
 
-        let selectedInput = input.querySelector(`input[name="${this.name}"]:checked`);
+        let selectedInput = input?.querySelector(`input[name="${this.name}"]:checked`);
 
         return selectedInput ? this.getOptionByValue(selectedInput.value) : this.value;
     }

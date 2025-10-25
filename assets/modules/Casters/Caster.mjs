@@ -1,3 +1,4 @@
+import { Field } from "../Fields/Field.mjs";
 import { Option } from "../options/Option.mjs";
 
 export class Caster {
@@ -27,8 +28,18 @@ export class Caster {
             case Option:
                 return value instanceof Option ? value : null;
 
+            case URL:
+                try {
+                    return new URL(value);
+                } catch {
+                    return null;
+                }
+
             case "Option[]":
                 return (Array.isArray(value) && value.every(v => v instanceof Option)) ? value : [];
+
+            case "Field[]":
+                return (Array.isArray(value) && value.every(v => v instanceof Field)) ? value : [];
 
             case String:
             default:

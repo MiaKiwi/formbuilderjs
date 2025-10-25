@@ -1,3 +1,4 @@
+import { RandomIDProvider } from "../IDProviders/RandomIDProvider.mjs";
 import { Option } from "../options/Option.mjs";
 import { OptionsGroup } from "../options/OptionsGroup.mjs";
 import { Field } from "./Field.mjs";
@@ -36,7 +37,15 @@ export class SelectField extends Field {
         input.classList.add('field-input');
 
         for (let optionOrGroup of this.options) {
-            input.appendChild(optionOrGroup.dom(doc));
+            // Check if the option or group is already in the DOM
+            if (optionOrGroup.dom(doc)) {
+                // If so, clone it to avoid duplication errors
+                let cl = optionOrGroup.dom(doc).cloneNode(true);
+                cl.id = RandomIDProvider.new();
+                input.appendChild(cl);
+            } else {
+                input.appendChild(optionOrGroup.dom(doc));
+            }
         }
 
         try {

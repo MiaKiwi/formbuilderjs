@@ -29,8 +29,8 @@ export class FileField extends HTMLInputField {
         if (this.min !== null) this.attributes.min = this.min;
         if (this.max !== null) this.attributes.max = this.max;
 
-        if (this.multiple && this.min !== null && this.max !== null) {
-            this.validators.push(new NumberOfFilesValidator(this.min, this.max));
+        if (this.multiple) {
+            this.validators.push(new NumberOfFilesValidator(this.min ?? 0, this.max ?? Infinity));
         }
 
         this.htmlInputType = 'file';

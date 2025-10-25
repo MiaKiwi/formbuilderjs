@@ -34,6 +34,7 @@ import { Datalist } from "./options/Datalist.mjs";
 import { Option } from "./options/Option.mjs";
 import { RandomIDProvider } from "./IDProviders/RandomIDProvider.mjs";
 import { OptionsGroup } from "./options/OptionsGroup.mjs";
+import { ArrayField } from "./Fields/ArrayField.mjs";
 
 let form = new Form({
     id: 'accident-report-form',
@@ -60,6 +61,20 @@ let form = new Form({
             value: (new Date()).toISOString().split('T')[0],
             attributes: {
                 required: true
+            }
+        }),
+        new ArrayField({
+            id: 'witnesses',
+            name: 'witnesses',
+            label: 'Witnesses',
+            helper: 'Add the names of any witnesses to the accident.',
+            min: 0,
+            max: 3,
+            unique: true,
+            itemFieldClass: TextField,
+            itemFieldParams: {
+                label: 'Witness',
+                attributes: { required: true }
             }
         }),
         new RadioField({
@@ -130,10 +145,7 @@ let form = new Form({
     ]
 });
 
-document.body.appendChild(form.getFieldById('accident-date').datalist.dom());
-document.body.appendChild(form.getFieldById('vehicle-color').datalist.dom());
-
-document.body.appendChild(form.dom());
+form.appendIn(document.body);
 
 form.validate();
 

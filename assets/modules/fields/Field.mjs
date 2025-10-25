@@ -527,7 +527,6 @@ export class Field {
      * @returns {Boolean} True if the field is valid, false otherwise
      */
     isValid() {
-        let dom = this.dom();
         let inputRegion = this.getInputRegionElementFromDOM();
 
         // Clear previous errors

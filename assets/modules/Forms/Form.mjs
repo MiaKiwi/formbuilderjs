@@ -1,5 +1,3 @@
-import { HTMLDatalistInputField } from "../Fields/HTMLDatalistInputField.mjs";
-
 export class Form {
     constructor({
         id,
@@ -204,7 +202,7 @@ export class Form {
 
         // Append the datalists of the fields
         this.fields.forEach(field => {
-            if (field instanceof HTMLDatalistInputField && field.datalist && !parent.ownerDocument.getElementById(field.datalist.id)) {
+            if (field?.datalist && !parent.ownerDocument.getElementById(field.datalist.id)) {
                 parent.appendChild(field.datalist.dom(parent.ownerDocument));
             }
         })
