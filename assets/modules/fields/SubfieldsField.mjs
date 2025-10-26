@@ -50,8 +50,39 @@ export class SubfieldsField extends Field {
 
 
     /**
+     * Gets the ID for an item (sub-field) based on its index
+     * @param {Number} [index=this.tail] The index of the item
+     * @returns {String} The ID for the item
+     */
+    getItemId(index = this.tail) {
+        return `${this.id}-item-${index}`;
+    }
+
+
+
+    /**
+     * Gets the name for an item (sub-field) based on its index
+     * @param {Number} [index=this.tail] The index of the item
+     * @returns {String} The name for the item
+     */
+    getItemName(index = this.tail) {
+        return `${this.name}[${index}]`;
+    }
+
+
+
+    /**
+     * Increments the tail index for item ID/name generation
+     */
+    bumpTail() {
+        this.tail++;
+    }
+
+
+
+    /**
      * Adds a new item (sub-field) to the field
-     * @param {Function} itemFieldClass The class constructor for the sub-field
+     * @param {Class<Field>} itemFieldClass The class constructor for the sub-field
      * @param {Object} [itemFieldParams={}] The parameters to initialize the sub-field
      * @returns {Field} The created sub-field
      */
@@ -60,18 +91,20 @@ export class SubfieldsField extends Field {
 
         // Add an ID if not present
         if (!itemField.id) {
-            itemField.id = `${this.id}-item-${this.tail++}`;
+            itemField.id = this.getItemId(this.tail);
         }
 
         // Add a name if not present
         if (!itemField.name) {
-            itemField.name = `${this.name}[${this.tail - 1}]`;
+            itemField.name = this.getItemName(this.tail);
         }
 
         this.items.push(itemField);
 
         // Validate automatically if enabled
         if (this.autoValidate) this.validate();
+
+        this.bumpTail();
 
         return itemField;
     }

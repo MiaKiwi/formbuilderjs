@@ -31,7 +31,7 @@
   - [x] ADD form rendering
   - [ ] ADD form submission handling
 - [ ] ADD advanced field types
-  - [ ] `ArrayField`
+  - [x] `ArrayField`
   - [ ] `ObjectField`
 - [ ] ADD built-in validation for specific field types
 - [ ] ADD pre-built field groups:

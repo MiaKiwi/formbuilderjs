@@ -1,5 +1,6 @@
 import { Caster } from "../casters/Caster.mjs";
 import { Form } from "../forms/Form.mjs";
+import { RandomIDProvider } from "../IDProviders/RandomIDProvider.mjs";
 
 export class Field {
     /**
@@ -29,7 +30,7 @@ export class Field {
         // Check if the field is already in the DOM
         if (document.getElementById(id)) throw new Error(`Field with ID "${id}" already exists.`);
 
-        this.id = id;
+        this.id = id || RandomIDProvider.new();
         this.name = name || id;
         this.label = label;
         this.helper = helper;

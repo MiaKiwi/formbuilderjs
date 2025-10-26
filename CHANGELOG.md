@@ -5,7 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [STVP](https://drive.mia.kiwi/index.php/s/PLGxSTNDxSTVP).
 
-## [Unreleased]
+## [25.0.6] - 2025-10-26
+
+### Added
+
+- Mixed-types array field
+- Fields with datalists automatically add it to the DOM when they are created
+- Uniform array field (redo of `ArrayField`, only allows one type of sub-field)
+
+### Changed
+
+- `Field` automatically gets random ID if no ID is provided
+- `NumberOfSubFieldsFieldValidator` now uses min and max associated with the validator, not the constructor
+- Redid array field cuz I wasn't satisfied
+- Updated README
+- Updated example
+- Validator `UniqueSubfieldValuesFieldValidator` now converts values to strings to compare them
+
+### Fixed
+
+- Field styling
+
+
+
+## [25.0.5] - 2025-10-25
 
 ### Added
 

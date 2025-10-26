@@ -1,4 +1,5 @@
 import { SubfieldsField } from "../Fields/SubfieldsField.mjs";
+import { Option } from "../options/Option.mjs";
 import { FieldValidator } from "./FieldValidator.mjs";
 
 export class UniqueSubfieldValuesFieldValidator extends FieldValidator {
@@ -15,6 +16,15 @@ export class UniqueSubfieldValuesFieldValidator extends FieldValidator {
             let items = field.getItems();
 
             let values = items.map(item => item.getTypedValue());
+
+            // Convert Option objects to their values for comparison
+            values = values.map(v => {
+                if (v instanceof Option) {
+                    return String(v.value);
+                }
+
+                return String(v);
+            });
 
             let uniqueValues = new Set(values);
 

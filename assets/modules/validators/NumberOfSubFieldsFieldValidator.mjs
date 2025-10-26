@@ -18,7 +18,7 @@ export class NumberOfSubFieldsFieldValidator extends FieldValidator {
 
             let numberOfItems = items ? items.length : 0;
 
-            return numberOfItems >= min && numberOfItems <= max;
+            return numberOfItems >= (this.min ?? 0) && numberOfItems <= (this.max ?? Infinity);
         };
 
         super(script, message);

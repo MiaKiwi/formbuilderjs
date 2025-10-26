@@ -16,4 +16,17 @@ export class HTMLDatalistInputField extends HTMLInputField {
         this.datalist = datalist;
         this.attributes.list = this.datalist ? this.datalist.id : null;
     }
+
+
+
+    createInputRegionElement(doc = document) {
+        let regionElement = super.createInputRegionElement(doc);
+
+        // Append datalist element if available
+        if (this.datalist && !doc.getElementById(this.datalist.id)) {
+            regionElement.appendChild(this.datalist.dom(doc));
+        }
+
+        return regionElement;
+    }
 }

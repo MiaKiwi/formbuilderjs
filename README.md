@@ -34,7 +34,7 @@ import { Datalist } from "./options/Datalist.mjs";
 import { Option } from "./options/Option.mjs";
 import { RandomIDProvider } from "./IDProviders/RandomIDProvider.mjs";
 import { OptionsGroup } from "./options/OptionsGroup.mjs";
-import { ArrayField } from "./Fields/ArrayField.mjs";
+import { UniformArrayField } from "./Fields/UniformArrayField.mjs";
 
 let form = new Form({
     id: 'accident-report-form',
@@ -63,12 +63,12 @@ let form = new Form({
                 required: true
             }
         }),
-        new ArrayField({
+        new UniformArrayField({
             id: 'witnesses',
             name: 'witnesses',
             label: 'Witnesses',
             helper: 'Add the names of any witnesses to the accident.',
-            min: 0,
+            min: 1,
             max: 3,
             unique: true,
             itemFieldClass: TextField,
