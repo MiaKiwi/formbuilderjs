@@ -1,3 +1,5 @@
+import { Field } from "../Fields/Field.mjs";
+
 export class Form {
     constructor({
         id,
@@ -206,5 +208,49 @@ export class Form {
                 parent.appendChild(field.datalist.dom(parent.ownerDocument));
             }
         })
+    }
+
+
+
+    /**
+     * Gets the values of the form fields as a plain object
+     * @returns {Object} The form field values
+     */
+    toValuesObject() {
+        let result = {};
+
+        // Get the values of all first-level fields
+        let firstLevelValues = this.getValues();
+
+        for (let [key, value] of Object.entries(firstLevelValues)) {
+            if (value instanceof Option) {
+                // If the value is an Option, get its value
+                result[key] = value.value;
+            } else if (Array.isArray(value) && value.every(v => v instanceof Option)) {
+                // If the value is an array of Options, get their values
+                result[key] = value.map(v => v.value);
+            } else if (value instanceof Field) {
+                // If the value is a Field, get its typed value
+                result[key] = value.getTypedValue();
+            } else if (Array.isArray(value) && value.every(v => v instanceof Field)) {
+                // If the value is an array of Fields, get their typed values
+                result[key] = value.map(v => v.getTypedValue());
+            } else {
+                // Otherwise, use the value as is
+                result[key] = value;
+            }
+        }
+
+        return result;
+    }
+
+
+
+    /**
+     * Gets the JSON representation of the form values
+     * @returns {String} The JSON representation of the form values
+     */
+    toValuesJSON() {
+        return JSON.stringify(this.toValuesObject());
     }
 }

@@ -42,3 +42,4 @@
 - [ ] ADD documentation and examples
 - [ ] CHANGE more styling
 - [ ] ADD field grouping and layout options
+- [ ] CHANGE name as "FormBuilderJS" seems to be already taken

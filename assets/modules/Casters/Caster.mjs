@@ -41,6 +41,18 @@ export class Caster {
             case "Field[]":
                 return (Array.isArray(value) && value.every(v => v instanceof Field)) ? value : [];
 
+            case "Object<String, FieldValue>":
+                if (value !== null && Array.isArray(value) && value.every(v => v instanceof Field)) {
+                    let obj = {};
+                    value.forEach(field => {
+                        obj[field.name] = field.getTypedValue();
+                    });
+                    return obj;
+                } else {
+                    return {};
+                }
+
+
             case String:
             default:
                 return String(value);

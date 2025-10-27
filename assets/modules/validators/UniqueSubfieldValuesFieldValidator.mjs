@@ -21,9 +21,11 @@ export class UniqueSubfieldValuesFieldValidator extends FieldValidator {
             values = values.map(v => {
                 if (v instanceof Option) {
                     return String(v.value);
+                } else if (typeof v === 'object' && v !== null) {
+                    return JSON.stringify(v);
+                } else {
+                    return String(v);
                 }
-
-                return String(v);
             });
 
             let uniqueValues = new Set(values);

@@ -174,3 +174,24 @@
 .array-field-item-wrapper .field {
     grid-area: input;
 }
+
+
+
+.group-field-input {
+    border: none;
+    border-left: 1px solid #24242488;
+    border-radius: 0;
+    padding-left: 0.25em;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+
+
+.group-field-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}

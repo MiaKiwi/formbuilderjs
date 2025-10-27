@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [STVP](https://drive.mia.kiwi/index.php/s/PLGxSTNDxSTVP).
 
+## [25.0.7] - 2025-10-27
+
+### Added
+
+- `Object<String, FieldValue>` cast case for fields that should return an object with the field values
+- `GroupField` to create templates and reusable field structures
+- `toValuesObject` and `toValuesJSON` methods to `Form`
+- Styling for fields group
+- `Required` parameter to `Field` which automatically adds the `required` parameter to the element attributes
+
+### Changed
+
+- `UniqueSubfieldValuesFieldValidator` to convert Objects to JSON for comparison
+
+
+
 ## [25.0.6] - 2025-10-26
 
 ### Added

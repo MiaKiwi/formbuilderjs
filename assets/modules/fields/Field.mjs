@@ -25,10 +25,13 @@ export class Field {
         validators = [],
         form = null,
         value = null,
+        required = false,
         caster = Caster
     }) {
         // Check if the field is already in the DOM
         if (document.getElementById(id)) throw new Error(`Field with ID "${id}" already exists.`);
+
+        if (required) attributes.required = 'required';
 
         this.id = id || RandomIDProvider.new();
         this.name = name || id;
